@@ -1,16 +1,238 @@
-.cart-button {
-  border-radius: 10px;
-  background: red;
-  color: white;
-  cursor: pointer;
+* {
+    margin: 0;
+    padding: 0;
 }
-.goods-list {
-  display: flex;
-  margin-top: 20px;
-  justify-content: space-between;
+
+body,
+html {
+    height: 100%;
 }
-.goods-item {
-  outline: 1px solid black;
-  width: 200px;
-  text-align: center;
+
+body {
+    background-color: #f8f8f8;
+}
+
+.container {
+    max-width: 1200px;
+    min-width: 410px;
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+/*--------- Шапка сайта ------------*/
+
+.header {
+    height: 147px;
+    background: #eaeaea;
+    /*background-image: url(header_small.png);*/
+}
+
+.logo {
+    float: left;
+}
+
+
+/*--------- Меню ------------*/
+
+.menu {
+    float: right;
+    list-style-type: none;
+    padding-left: 0;
+    margin-top: 60px;
+    margin-right: 30px;
+}
+
+.menu li {
+    display: inline;
+}
+
+.menu a {
+    padding: 0 10px;
+    color: #3537C3;
+    text-decoration: none;
+    font-family: "candara";
+}
+
+.menu a:hover {
+    color: coral;
+}
+
+
+/*--------- Основной контент ------------*/
+
+.content {
+    min-height: 360px;
+    flex: 1 0 auto;
+}
+
+/*--------- Для разделения после блоков с float------------*/
+
+.clear {
+    clear: both;
+}
+
+h1,
+h2,
+#welcome {
+    text-align: center;
+}
+
+/*--------- Сетка товаров ------------*/
+
+.product_grid {
+    height: 300px;
+    position: relative;
+}
+
+.product {
+    height: 208px;
+    width: 200px;
+    position: absolute;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.prod2 {
+    left: 220px;
+}
+
+/*--------- Карточки товаров  ------------*/
+
+.base_img {
+    display: block;
+    float: left;
+    margin: 0 20px;
+    outline-style: solid;
+}
+
+.base_img:hover {
+    outline-width: 0px;
+}
+
+.right {
+    overflow: hidden;
+}
+
+.price {
+    margin: 5px 0;
+    font-size: 24px;
+    color: crimson;
+    float: left;
+}
+
+.sale_button {
+    overflow: hidden;
+    margin-top: 5px;
+    margin-left: 200px;
+    width: 100px;
+    height: 30px;
+    background-color: crimson;
+    border-radius: 5px;
+    color: beige;
+    text-align: center;
+    padding-top: 4px;
+    box-sizing: border-box;
+}
+
+.sale_button:hover {
+    cursor: pointer;
+}
+
+.sale_button:active {
+    background-color: brown;
+}
+
+h3 {
+    text-align: center;
+    color: black;
+    font-size: 18px;
+    font-weight: 400;
+    background: #eaeaea;
+}
+
+.krat {
+    color: #707070;
+    font-size: 14px;
+    font-style: italic;
+    line-height: 16px;
+}
+
+.podr {
+    color: #484343;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+}
+
+.chars {
+    list-style-type: none;
+    line-height: 25px;
+    font-family: ;
+    font-size: 14px;
+    padding-left: 0;
+}
+
+/*--------- Страница Контакты ------------*/
+
+.contact_us_table {
+    margin: auto;
+}
+
+.contacts td,
+.contact_us_table td {
+    padding: 4px;
+}
+
+.col1 {
+    text-align: right;
+    font-weight: bold;
+}
+
+.inp {
+    height: 25px;
+    width: 250px;
+}
+
+.inp,
+#msg {
+    font-size: 14px;
+    font-family: "book antiqua";
+    text-transform: capitalize;
+}
+
+.inp[type="email"],
+#tema {
+    text-transform: none;
+}
+
+.inp[type="email"]:focus {
+    color: forestgreen;
+    background-color: azure;
+}
+
+/*--------- Футер ------------*/
+
+.footer {
+    background-color: #eaeaea;
+    height: 40px;
+    max-width: 1200px;
+    min-width: 410px;
+    text-align: right;
+    flex: 0 0 auto;
+}
+
+.footer p {
+    padding-top: 10px;
+    padding-right: 20px;
+}
+
+/* Медиазапрос, скринит экран для адаптивности */
+
+@media screen and (max-width: 620px) {
+    .menu li {
+        display: block;
+    }
 }
