@@ -18,7 +18,7 @@ body {
   display: flex;
   flex-direction: column; }
 
-/*--------- ╨и╨░╨┐╨║╨░ ╤Б╨░╨╣╤В╨░ ------------*/
+/*--------- Шапка сайта ------------*/
 .header {
   height: 147px;
   background: #eaeaea; }
@@ -26,7 +26,7 @@ body {
 .logo {
   float: left; }
 
-/*--------- ╨Ь╨╡╨╜╤О ------------*/
+/*--------- Меню ------------*/
 .menu {
   float: right;
   list-style-type: none;
@@ -64,12 +64,12 @@ body {
   box-shadow: #3537C3 0px 0px 10px;
   text-shadow: white 0px 0px 2px; }
 
-/*--------- ╨Ю╤Б╨╜╨╛╨▓╨╜╨╛╨╣ ╨║╨╛╨╜╤В╨╡╨╜╤В ------------*/
+/*--------- Основной контент ------------*/
 .content {
   min-height: 360px;
   flex: 1 0 auto; }
 
-/*--------- ╨Ф╨╗╤П ╤А╨░╨╖╨┤╨╡╨╗╨╡╨╜╨╕╤П ╨┐╨╛╤Б╨╗╨╡ ╨▒╨╗╨╛╨║╨╛╨▓ ╤Б float------------*/
+/*--------- Для разделения после блоков с float------------*/
 .clear {
   clear: both; }
 
@@ -78,7 +78,7 @@ h2,
 #welcome {
   text-align: center; }
 
-/*--------- ╨б╨╡╤В╨║╨░ ╤В╨╛╨▓╨░╤А╨╛╨▓ ------------*/
+/*--------- Сетка товаров ------------*/
 .goods-list {
   margin-left: -20px;
   margin-top: 20px; }
@@ -107,7 +107,10 @@ h2,
     color: #fff;
     cursor: pointer; }
 
-/*--------- ╨Ъ╨░╤А╤В╨╛╤З╨║╨╕ ╤В╨╛╨▓╨░╤А╨╛╨▓  ------------*/
+.summ-item {
+  clear: both; }
+
+/*--------- Карточки товаров  ------------*/
 .base_img {
   display: block;
   float: left;
@@ -171,7 +174,7 @@ h3 {
   font-size: 14px;
   padding-left: 0; }
 
-/*--------- ╨б╤В╤А╨░╨╜╨╕╤Ж╨░ ╨Ъ╨╛╨╜╤В╨░╨║╤В╤Л ------------*/
+/*--------- Страница Контакты ------------*/
 .contact_us_table {
   margin: auto; }
 
@@ -201,7 +204,7 @@ h3 {
   color: forestgreen;
   background-color: azure; }
 
-/*--------- ╨д╤Г╤В╨╡╤А ------------*/
+/*--------- Футер ------------*/
 .footer {
   background-color: #eaeaea;
   height: 40px;
@@ -214,7 +217,7 @@ h3 {
   padding-top: 10px;
   padding-right: 20px; }
 
-/* ╨Ь╨╡╨┤╨╕╨░╨╖╨░╨┐╤А╨╛╤Б, ╤Б╨║╤А╨╕╨╜╨╕╤В ╤Н╨║╤А╨░╨╜ ╨┤╨╗╤П ╨░╨┤╨░╨┐╤В╨╕╨▓╨╜╨╛╤Б╤В╨╕ */
+/* Медиазапрос, скринит экран для адаптивности */
 @media screen and (max-width: 620px) {
   .menu li {
     display: block; } }
