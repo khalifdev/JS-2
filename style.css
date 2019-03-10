@@ -1,0 +1,16 @@
+.cart-button {
+  border-radius: 10px;
+  background: red;
+  color: white;
+  cursor: pointer;
+}
+.goods-list {
+  display: flex;
+  margin-top: 20px;
+  justify-content: space-between;
+}
+.goods-item {
+  outline: 1px solid black;
+  width: 200px;
+  text-align: center;
+}
