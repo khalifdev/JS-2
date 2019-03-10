@@ -4,31 +4,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Каталог | Elbook.ru</title>
-    <link rel="stylesheet" href="style.css"> </head>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+</head>
 
 <body>
     <div class="container">
         <div class="header">
             <div class="logo"><img src="logo_grey.png" alt="Логотип Elbook.ru"></div>
+
             <ul class="menu">
                 <li><a href="index.html">Главная</a></li>
                 <li><a href="catalog.html">Каталог</a></li>
                 <li><a href="contacts.html">Контакты</a></li>
+                <li>
+                    <button class="cart-button">
+                        <span class="textButton">Корзина</span>
+                    </button>
+                </li>
             </ul>
         </div>
         <div class="content">
             <div class="clear"></div>
-            <h2>Каталог</h2>
-            <div class="product_grid">
-                <div class="product prod1">
-                    <a href="catalog/book1.html"><img src="img/java-scr_prf_prm.jpg" alt="JavaScript. Профессиональные приемы программирования" height="150">
-                        <br>JavaScript. Профессиональные приемы программирования</a>
-                </div>
-                <div class="product prod2">
-                    <a href="catalog/book2.html"><img src="img/php_nast_knig_prog.jpg" alt="PHP настольная книга программиста" height="150">
-                        <br>PHP настольная книга программиста</a>
-                </div>
-            </div>
+            <div class="goods-list"></div>
         </div>                
     
 <div class="footer"> <p>&copy; Все права защищены</p> </div></div>
