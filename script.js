@@ -16,6 +16,11 @@ class GoodItem {
               </button>
             </div>`;
     }
+    // метод, отправляющий товар в Корзину, вызывается нажатием на кнопку "Купить"
+    addToCart() {
+        // вызывется метод объекта Корзины, добавляющий товар
+        listCart.add(this.title, this.price);
+    }
 }
 
 
@@ -25,13 +30,25 @@ class GoodsList {
     }
     fetchGoods() {
         this.goods = [
-            { title: 'JavaScript. Профессиональные приемы программирования',
-               path: 'img/java-scr_prf_prm.jpg', price: 150 },
-            { title: 'PHP настольная книга программиста',
-                path: 'img/php_nast_knig_prog.jpg', price: 50 },
-            { title: 'Базы данных. Проектирование, реализация и сопровождение. Теория и практика',
-                path: 'img/bd_proekt_real_sopr.jpg', price: 350 },
-            { title: 'JavaScript. Подробное руководство', price: 250 }
+            {
+              title: 'JavaScript. Профессиональные приемы программирования',
+              path: 'img/java-scr_prf_prm.jpg',
+              price: 150
+            },
+            {
+              title: 'PHP настольная книга программиста',
+              path: 'img/php_nast_knig_prog.jpg',
+              price: 50
+            },
+            {
+              title: 'Базы данных. Проектирование, реализация и сопровождение. Теория и практика',
+              path: 'img/bd_proekt_real_sopr.jpg',
+              price: 350
+            },
+            {
+              title: 'JavaScript. Подробное руководство',
+              price: 250
+            }
         ]
     }
     render() {
@@ -41,11 +58,54 @@ class GoodsList {
             listHtml += goodItem.render();
         });
         document.querySelector('.goods-list').innerHTML = listHtml;
+        // Выводим общую стоимость всех товаров
+        document.querySelector('.summ-item').innerText = `Общая стоимость товаров: ${this.calc()} рублей`;
+    }
+    // метод для подсчета общей стоимости товаров
+    calc() {
+        let summ = 0;
+        this.goods.forEach((good) => {
+           summ += good.price;
+        });
+        return summ;
     }
 }
 
 const list = new GoodsList();
 list.fetchGoods();
+
+
+class CartGood extends GoodItem {
+    render() {
+        // выводит товар в корзине
+    }
+
+}
+
+class Cart extends GoodsList {
+    //constructor() {
+        // массив Товаров в Корзине с учетом количества count
+    //}
+
+    add(title, price) {
+        // добавление товара в this.cartGoods[], если новый;
+        // увеличение count, если уже есть;
+        // расчет стоимости товара;
+        // вызов подсчета общей суммы товаров в Корзине
+    }
+    remove() {
+        // удаляет товар из корзины или уменьшает count
+        // расчет стоимости товара;
+        // вызов подсчета общей суммы товаров в Корзине
+    }
+    render () {
+        // отличается от родительского метода тем, что выводит данные
+        // в области Корзины
+    }
+    // метод calc() наследуется
+}
+
+const listCart = new Cart();
 
 window.onload = () => {
     list.render();
