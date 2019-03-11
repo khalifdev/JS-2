@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FastFood</title>
+</head>
+<body>
+    <div class="menu">
+        <button onclick="smallBurger()">Small</button>
+        <button onclick="bigBurger()">Big</button>
+    </div>
+    <script>
+        class Hamburger {
+            constructor(size, stuffing) {
+                this.size = size;
+                this.stuffing = stuffing;
+                this.price = 0;
+                this.toppingArr = [];
+            }
+            addTopping(topping) {    // Добавить добавка
+                this.calculatePrice(topping);
+                this.toppingArr.push(topping);
+            }
+            removeTopping(topping) { // Убрать добавку
+
+            }
+            getToppings(topping) {   // Получить список добавок
+                document.querySelector('.toppings').innerText = this.toppingArr;
+            }
+            getSize() {              // Узнать размер гамбургера }
+                document.querySelector('.size').innerText = this.size;
+            }
+            getStuffing() {          // Узнать начинку гамбургера }
+                document.querySelector('.stuffing').innerText = this.stuffing;
+            }
+            calculatePrice() {       // Узнать цену }
+
+            }
+            calculateCalories() {    // Узнать калорийность }
+
+            }
+        }
+        function smallBurger() {
+            const small = new Hamburger()
+        }
+    </script>
+</body>
+</html>
