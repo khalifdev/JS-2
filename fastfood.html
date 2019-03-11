@@ -5,44 +5,73 @@
     <title>FastFood</title>
 </head>
 <body>
-    <div class="menu">
-        <button onclick="smallBurger()">Small</button>
-        <button onclick="bigBurger()">Big</button>
-    </div>
+    <!--<div class="menu">-->
+        <!--<button onclick="smallBurger()">Small</button>-->
+        <!--<button onclick="bigBurger()">Big</button>-->
+    <!--</div>-->
     <script>
         class Hamburger {
-            constructor(size, stuffing) {
+            constructor(size) {
                 this.size = size;
-                this.stuffing = stuffing;
+                this.result = '';
                 this.price = 0;
-                this.toppingArr = [];
+                this.cals = 0;
+                switch (size) {
+                    case 1:
+                        this.result = 'Маленький';
+                        this.price = 50;
+                        this.cals = 20;
+                        break;
+                    case 2:
+                        this.result = 'Большой';
+                        this.price = 100;
+                        this.cals = 40;
+                        break;
+
+                }
             }
             addTopping(topping) {    // Добавить добавка
-                this.calculatePrice(topping);
-                this.toppingArr.push(topping);
+                switch (topping) {
+                    case 1:
+                        this.result += ' с сыром';
+                        this.price += 10;
+                        this.cals += 20;
+                        break;
+                    case 2:
+                        this.result = ' с салатом';
+                        this.price += 20;
+                        this.cals += 5;
+                        break;
+                    case 3:
+                        this.result = ' с картофелем';
+                        this.price += 15;
+                        this.cals += 10;
+                        break;
+                }
             }
-            removeTopping(topping) { // Убрать добавку
-
+            addSpice(spice) {
+                switch (spice) {
+                    case 1:
+                        this.result += ' с приправой';
+                        this.price += 15;
+                        this.cals += 0;
+                        break;
+                    case 2:
+                        this.result = ' с майонезом';
+                        this.price += 20;
+                        this.cals += 5;
+                        break;
+                }
             }
-            getToppings(topping) {   // Получить список добавок
-                document.querySelector('.toppings').innerText = this.toppingArr;
-            }
-            getSize() {              // Узнать размер гамбургера }
-                document.querySelector('.size').innerText = this.size;
-            }
-            getStuffing() {          // Узнать начинку гамбургера }
-                document.querySelector('.stuffing').innerText = this.stuffing;
-            }
-            calculatePrice() {       // Узнать цену }
-
-            }
-            calculateCalories() {    // Узнать калорийность }
-
+            getResult() {       // Вывести результат
+                alert(`Вы заказали гамбургер: ${this.result}\nкалорийностью ${this.cals} калорий на сумму ${this.price} рублей!`);
             }
         }
-        function smallBurger() {
-            const small = new Hamburger()
-        }
+        var a = prompt('Выберите размер гамбургера (1-маленький, 2-большой)');
+        const order = new Hamburger(a);
+        order.addTopping(prompt('Выберите начинку (1- с сыром, 2- с салатом, 3- с картофелем)'));
+        order.addSpice(prompt('Хотите заправить бургер (1- приправой, 2- майонезом)'));
+        order.getResult();
     </script>
 </body>
 </html>

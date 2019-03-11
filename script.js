@@ -1,5 +1,29 @@
+// База товаров интернет-магазина
+goodsBase = [
+    { id: 0,
+        title: 'JavaScript. Профессиональные приемы программирования',
+        path: 'img/java-scr_prf_prm.jpg',
+        price: 150
+    },
+    { id: 1,
+        title: 'PHP настольная книга программиста',
+        path: 'img/php_nast_knig_prog.jpg',
+        price: 50
+    },
+    { id: 2,
+        title: 'Базы данных. Проектирование, реализация и сопровождение. Теория и практика',
+        path: 'img/bd_proekt_real_sopr.jpg',
+        price: 350
+    },
+    { id: 3,
+        title: 'JavaScript. Подробное руководство',
+        price: 250
+    }
+]
+
 class GoodItem {
-    constructor(title, path, price) {
+    constructor(id, title, path, price) {
+        this.id = id;
         this.title = title;
         this.path = path;
         this.price = price;
@@ -11,50 +35,22 @@ class GoodItem {
                 <h4>${this.title}</h4>
                 <p>${this.price || 'Цена по запросу'} руб.</p>
               </div>
-              <button class='addClick'>
+              <button class='addClick' id=${this.id} onclick='listCart.addToCart(this.id)'>
                 <span class="textButton">Купить<span>
               </button>
             </div>`;
     }
-    // метод, отправляющий товар в Корзину, вызывается нажатием на кнопку "Купить"
-    addToCart() {
-        // вызывется метод объекта Корзины, добавляющий товар
-        listCart.add(this.title, this.price);
-    }
+
 }
 
-
 class GoodsList {
-    constructor() {
-        this.goods = []
-    }
-    fetchGoods() {
-        this.goods = [
-            {
-              title: 'JavaScript. Профессиональные приемы программирования',
-              path: 'img/java-scr_prf_prm.jpg',
-              price: 150
-            },
-            {
-              title: 'PHP настольная книга программиста',
-              path: 'img/php_nast_knig_prog.jpg',
-              price: 50
-            },
-            {
-              title: 'Базы данных. Проектирование, реализация и сопровождение. Теория и практика',
-              path: 'img/bd_proekt_real_sopr.jpg',
-              price: 350
-            },
-            {
-              title: 'JavaScript. Подробное руководство',
-              price: 250
-            }
-        ]
+    constructor(goods) {
+        this.goods = goods;
     }
     render() {
         let listHtml = '';
         this.goods.forEach((good) => {
-            const goodItem = new GoodItem(good.title, good.path, good.price);
+            const goodItem = new GoodItem(good.id, good.title, good.path, good.price);
             listHtml += goodItem.render();
         });
         document.querySelector('.goods-list').innerHTML = listHtml;
@@ -71,23 +67,20 @@ class GoodsList {
     }
 }
 
-const list = new GoodsList();
-list.fetchGoods();
+const list = new GoodsList(goodsBase);
 
 
 class CartGood extends GoodItem {
     render() {
         // выводит товар в корзине
+        // вместе с кнопками для регулировки количества
     }
 
 }
 
 class Cart extends GoodsList {
-    //constructor() {
-        // массив Товаров в Корзине с учетом количества count
-    //}
 
-    add(title, price) {
+    addToCart(id) {
         // добавление товара в this.cartGoods[], если новый;
         // увеличение count, если уже есть;
         // расчет стоимости товара;
