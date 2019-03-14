@@ -52,14 +52,16 @@ class GoodsList {
         this.goods = [];
     }
     fetchGoods() {
-        makeGETRequest(`${API_URL}/goods.json`)
-            .then((goods) => {
-                this.goods = JSON.parse(goods);
-                this.render();
-            },
-                (error) => {
-                console.log(error);
-            });
+        return new Promise((resolve, reject) => {
+            makeGETRequest(`${API_URL}/goods.json`)
+                .then((goods) => {
+                        this.goods = JSON.parse(goods);
+                        resolve();
+                    },
+                    (error) => {
+                        reject(error);
+                    });
+        })
     }
     render() {
         let listHtml = '';
@@ -112,5 +114,11 @@ const list = new GoodsList();
 const listCart = new Cart();
 
 window.onload = () => {
-    list.fetchGoods();
+    list.fetchGoods()
+        .then(() => {
+            list.render();
+        },
+        (error) => {
+            console.log(error);
+        })
 };
