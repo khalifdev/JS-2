@@ -1,5 +1,6 @@
 const API_URL = '';
-function makeGETRequest(url, callback) {
+function makeGETRequest(url) {
+    return new Promise((resolve, reject) => {
     var xhr;
 
     if(window.XMLHttpRequest) {
@@ -11,12 +12,16 @@ function makeGETRequest(url, callback) {
 
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4) {
-            callback(xhr.responseText);
+            //callback(xhr.responseText);
+
+              if (xhr.status === 200) resolve(xhr.responseText);
+              else reject(`Ошибка ${xhr.status}`);
         }
     }
 
     xhr.open('GET', url, true);
     xhr.send();
+    })
 }
 // Класс товара
 class GoodItem {
@@ -47,30 +52,14 @@ class GoodsList {
         this.goods = [];
     }
     fetchGoods() {
-        makeGETRequest(`${API_URL}/goods.json`, (goods) => {
-            this.goods = JSON.parse(goods);
-        })
-        // this.goods = [
-        //     { id: 0,
-        //         title: 'JavaScript. Профессиональные приемы программирования',
-        //         path: 'img/java-scr_prf_prm.jpg',
-        //         price: 150
-        //     },
-        //     { id: 1,
-        //         title: 'PHP настольная книга программиста',
-        //         path: 'img/php_nast_knig_prog.jpg',
-        //         price: 50
-        //     },
-        //     { id: 2,
-        //         title: 'Базы данных. Проектирование, реализация и сопровождение. Теория и практика',
-        //         path: 'img/bd_proekt_real_sopr.jpg',
-        //         price: 350
-        //     },
-        //     { id: 3,
-        //         title: 'JavaScript. Подробное руководство',
-        //         price: 250
-        //     }
-        // ];
+        makeGETRequest(`${API_URL}/goods.json`)
+            .then((goods) => {
+                this.goods = JSON.parse(goods);
+                this.render();
+            },
+                (error) => {
+                console.log(error);
+            });
     }
     render() {
         let listHtml = '';
@@ -120,9 +109,8 @@ class Cart {
 }
 
 const list = new GoodsList();
-list.fetchGoods();
 const listCart = new Cart();
 
 window.onload = () => {
-    list.render();
+    list.fetchGoods();
 };
