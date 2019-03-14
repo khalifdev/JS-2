@@ -1,26 +1,5 @@
-// База товаров интернет-магазина
-goodsBase = [
-    { id: 0,
-        title: 'JavaScript. Профессиональные приемы программирования',
-        path: 'img/java-scr_prf_prm.jpg',
-        price: 150
-    },
-    { id: 1,
-        title: 'PHP настольная книга программиста',
-        path: 'img/php_nast_knig_prog.jpg',
-        price: 50
-    },
-    { id: 2,
-        title: 'Базы данных. Проектирование, реализация и сопровождение. Теория и практика',
-        path: 'img/bd_proekt_real_sopr.jpg',
-        price: 350
-    },
-    { id: 3,
-        title: 'JavaScript. Подробное руководство',
-        price: 250
-    }
-]
 
+// Класс товара
 class GoodItem {
     constructor(id, title, path, price) {
         this.id = id;
@@ -43,9 +22,33 @@ class GoodItem {
 
 }
 
+// Класс списка товаров
 class GoodsList {
-    constructor(goods) {
-        this.goods = goods;
+    constructor() {
+        this.goods = [];
+    }
+    fetchGoods() {
+        this.goods = [
+            { id: 0,
+                title: 'JavaScript. Профессиональные приемы программирования',
+                path: 'img/java-scr_prf_prm.jpg',
+                price: 150
+            },
+            { id: 1,
+                title: 'PHP настольная книга программиста',
+                path: 'img/php_nast_knig_prog.jpg',
+                price: 50
+            },
+            { id: 2,
+                title: 'Базы данных. Проектирование, реализация и сопровождение. Теория и практика',
+                path: 'img/bd_proekt_real_sopr.jpg',
+                price: 350
+            },
+            { id: 3,
+                title: 'JavaScript. Подробное руководство',
+                price: 250
+            }
+        ];
     }
     render() {
         let listHtml = '';
@@ -59,16 +62,12 @@ class GoodsList {
     }
     // метод для подсчета общей стоимости товаров
     calc() {
-        let summ = 0;
-        this.goods.forEach((good) => {
-           summ += good.price;
-        });
-        return summ;
+        return this.goods.reduce((totalPrice, good) => {
+            if (!good.price) return totalPrice;
+            return totalPrice += good.price;
+        },0);
     }
 }
-
-const list = new GoodsList(goodsBase);
-
 
 class CartGood extends GoodItem {
     render() {
@@ -78,7 +77,7 @@ class CartGood extends GoodItem {
 
 }
 
-class Cart extends GoodsList {
+class Cart {
 
     addToCart(id) {
         // добавление товара в this.cartGoods[], если новый;
@@ -98,6 +97,8 @@ class Cart extends GoodsList {
     // метод calc() наследуется
 }
 
+const list = new GoodsList();
+list.fetchGoods();
 const listCart = new Cart();
 
 window.onload = () => {
