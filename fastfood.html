@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FastFood</title>
+</head>
+<body>
+    <script>
+        class Hamburger {
+            constructor(size, stuffing) {
+                this.size = size;
+                this.stuffing = stuffing;
+                this.topping = [];
+            }
+
+            addTopping(number) {    // принимаем номер приправы
+                this.topping.push(number);
+            }
+            getToppings() {
+                let list = '';
+                this.topping.forEach(item => {
+                    console.log(item);
+                    if (item == 1)
+                        list += 'с приправой';
+                    else
+                        list += 'с майонезом';
+                })
+                return list;
+
+            }
+            getSize() {
+                if (this.size === 1)
+                    return 'Маленький гамбургер';
+                else if (this.size === 2)
+                    return 'Большой гамбургер';
+            }
+            getStuffing() {
+                if (this.stuffing === 1)
+                    return 'c сыром';
+                else if (this.size === 2)
+                    return 'с салатом';
+                else
+                    return 'с картофелем';
+            }
+            calculatePrice() {
+                let price = 0;
+                // считаем по размеру
+                if (this.size == 1)
+                    price = 50;
+                else if (this.size == 2)
+                    price = 100;
+                else
+                    return false;
+                // считаем начинку
+                if (this.stuffing == 1)
+                    price += 10;
+                else if (this.size == 2)
+                    price += 20;
+                else if (this.size == 3)
+                    price += 15;
+                else
+                    return false;
+                // считаем добавки
+                this.topping.forEach(item => {
+                    if (item == 1)
+                        price += 15;
+                    else if (item == 2)
+                        price += 20;
+                    else
+                        return false;
+                })
+                return price;
+            }
+            calculateCalories() {
+                // считаем по аналогии с ценой
+            }
+        }
+        var a = +prompt('Выберите размер гамбургера (1-маленький, 2-большой)');
+        var b = +prompt('Выберите начинку (1- с сыром, 2- с салатом, 3- с картофелем)');
+        const order = new Hamburger(a,b);
+        order.addTopping(+prompt('Вы можете добавить приправу или майонез (1- приправа, 2- майонез)'));
+        alert(`Ваш заказ: ${order.getSize()} ${order.getStuffing()} ${order.getToppings()} на сумму ${order.calculatePrice()} рублей!`);
+
+    </script>
+</body>
+</html>
