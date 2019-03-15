@@ -1,4 +1,4 @@
-const API_URL = '';
+const API_URL = 'http://ck36854.tmweb.ru';
 function makeGETRequest(url) {
     return new Promise((resolve, reject) => {
     var xhr;
@@ -38,7 +38,7 @@ class GoodItem {
                 <h4>${this.title}</h4>
                 <p>${this.price || 'Цена по запросу'} руб.</p>
               </div>
-              <button class='addClick' id=${this.id} onclick='listCart.addToCart(this.id)'>
+              <button class='addClick' id=${this.id} onclick='list.addToCart(this.id)'>
                 <span class="textButton">Купить<span>
               </button>
             </div>`;
@@ -62,6 +62,9 @@ class GoodsList {
                         reject(error);
                     });
         })
+    }
+    addToCart(id) {
+        listCart.add(this.goods[id]);
     }
     render() {
         let listHtml = '';
@@ -91,8 +94,13 @@ class CartGood extends GoodItem {
 }
 
 class Cart {
+    constructor() {
+        this.goods = [];
+    }
 
-    addToCart(id) {
+    add(good) {
+        this.goods.push(good);
+        console.log(this.goods);
         // добавление товара в this.cartGoods[], если новый;
         // увеличение count, если уже есть;
         // расчет стоимости товара;
