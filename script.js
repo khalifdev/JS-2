@@ -99,23 +99,45 @@ class Cart {
     }
 
     add(good) {
-        this.goods.push(good);
-        console.log(this.goods);
-        // добавление товара в this.cartGoods[], если новый;
-        // увеличение count, если уже есть;
-        // расчет стоимости товара;
-        // вызов подсчета общей суммы товаров в Корзине
+        let index = this.goods.indexOf(good);
+        if (index === -1) {
+            good.count = 1;
+            this.goods.push(good);
+        }
+        else {
+            this.goods[index].count++;
+        }
     }
-    remove() {
-        // удаляет товар из корзины или уменьшает count
-        // расчет стоимости товара;
-        // вызов подсчета общей суммы товаров в Корзине
+    remove(good) {
+        this.goods.pop(good);
+            listCart.render();
     }
     render () {
-        // отличается от родительского метода тем, что выводит данные
-        // в области Корзины
+        document.querySelector('.cart').style.display = 'block';
+        // Строим таблицу с товарами в корзине
+        let table = document.getElementById('tableToBuy');
+        table.innerHTML = "";
+        let row, col0, col1, col2, col3;
+        for (var i = 0; i < this.goods.length; i++) {
+            row = table.insertRow(i);
+            col0 = row.insertCell(0);
+            col0.innerText = this.goods[i].title;
+            col1 = row.insertCell(1);
+            col1.innerText = this.goods[i].count + " шт. ";
+            col2 = row.insertCell(2);
+            col2.innerText = this.goods[i].price + " руб.";
+            col3 = row.insertCell(3);
+            col3.innerHTML = `<button class='removeClick' id=${this.goods[i]} onclick='listCart.remove(this.id)'>
+                <span class='textButton'>Удалить<span></button>`;
+        }
+        document.querySelector('#summ').innerText = `Итог: ${this.calcSum()} рублей`;
     }
-    // метод calc() наследуется
+    calcSum() {
+        return this.goods.reduce((totalPrice, good) => {
+            if (!good.price) return totalPrice;
+            return totalPrice += good.price * good.count;
+        },0);
+    }
 }
 
 const list = new GoodsList();
@@ -129,4 +151,5 @@ window.onload = () => {
         (error) => {
             console.log(error);
         })
+
 };

@@ -64,6 +64,22 @@ body {
   box-shadow: #3537C3 0px 0px 10px;
   text-shadow: white 0px 0px 2px; }
 
+/*--------- Область Корзины ------------*/
+.cart {
+  display: none;
+  width: 100%;
+  min-height: 200px;
+  border: 1px solid #000;
+  border-radius: 10px;
+  padding: 0 30px 20px;
+  box-sizing: border-box;
+  margin-bottom: 20px; }
+  .cart h2 {
+    text-align: center; }
+  .cart table td {
+    width: 150px;
+    height: 50px; }
+
 /*--------- Основной контент ------------*/
 .content {
   min-height: 360px;
@@ -98,14 +114,15 @@ h2,
     margin: 10px auto; }
   .goods-item img {
     height: 150px; }
-  .goods-item .addClick {
-    width: 70px;
-    height: 25px;
-    border-radius: 4px;
-    background: #3537C3;
-    border-style: initial;
-    color: #fff;
-    cursor: pointer; }
+
+.addClick, .removeClick {
+  width: 70px;
+  height: 25px;
+  border-radius: 4px;
+  background: #3537C3;
+  border-style: initial;
+  color: #fff;
+  cursor: pointer; }
 
 .summ-item {
   clear: both; }
