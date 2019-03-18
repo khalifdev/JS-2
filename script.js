@@ -70,6 +70,7 @@ class GoodsList {
     subFromBasket(id) {
         listBasket.sub(this.goods[id]);
     }
+    // метод, отправляющий данные Товара в Корзину для удаления
     removeFromBasket(id) {
         listBasket.remove(this.goods[id]);
     }
@@ -93,13 +94,13 @@ class GoodsList {
  }
 
 class BasketGood extends GoodItem {
-    constructor(id, title, price, count) {
+    constructor(id, title, price, count, sum) {
         super();
         this.id = id;
         this.title = title;
         this.price = price;
         this.count = count;
-        this.sum = this.price * this.count;
+        this.sum = sum;
     }
     render() {
         return `<div class='basketRow'>` +
@@ -123,23 +124,31 @@ class Basket {
     }
 
     add(good) {
+        //сначала проверяем, есть ли Товар в Корзине
+        // если есть
         let index = this.goods.indexOf(good);
         if (index === -1) {
             good.count = 1;
+            good.sum = good.price;
             this.goods.push(good);
         }
+        // если нет
         else {
             this.goods[index].count++;
+            good.sum += good.price;
             this.render();
         }
     }
     sub(good) {
+        // уменьшаем количество Товара, если его больше 1
         let index = this.goods.indexOf(good);
         if (this.goods[index].count > 1) {
             good.count--;
+            good.sum -= good.price;
             this.render();
         }
     }
+    // Удаление Товара из Корзины
     remove(good) {
         let index = this.goods.indexOf(good);
         this.goods.splice(index, 1);
@@ -157,15 +166,18 @@ class Basket {
             '                </div>';
 
         this.goods.forEach((good) => {
-            const basketGood = new BasketGood(good.id, good.title, good.price, good.count);
+            const basketGood = new BasketGood(good.id, good.title, good.price, good.count, good.sum);
             basketElement.innerHTML += basketGood.render();
         });
-
+        // Вывод итоговой стоимости Товаров в Корзине
+        basketElement.innerHTML +=`<div class="basketRow"><div class="resultText">Итого заказано товаров на сумму</div>
+            <div class="resultSum">${this.calcSum()} руб.</div></div>`;
     }
+    // Подсчет итоговой стоимости Товаров в Корзине
     calcSum() {
         return this.goods.reduce((totalPrice, good) => {
-            if (!good.price) return totalPrice;
-            return totalPrice += good.price * good.count;
+            if (!good.sum) return totalPrice;
+            return totalPrice += good.sum;
         },0);
     }
 }
@@ -174,6 +186,7 @@ const list = new GoodsList();
 const listBasket = new Basket();
 
 window.onload = () => {
+    // Полкчение Списка Товаров
     list.fetchGoods()
         .then(() => {
             list.render();

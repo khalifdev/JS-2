@@ -116,6 +116,14 @@ body {
       margin-top: 10px; }
   .basket .basketSum {
     width: 12%; }
+  .basket .resultText {
+    float: left;
+    width: 88%;
+    font-size: 20px;
+    font-weight: bold; }
+  .basket .resultText, .basket .resultSum {
+    font-size: 20px;
+    font-weight: bold; }
   .basket #tableToBuy {
     border-spacing: 16px;
     text-align: center; }
