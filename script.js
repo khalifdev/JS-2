@@ -12,7 +12,6 @@ function makeGETRequest(url) {
 
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4) {
-            //callback(xhr.responseText);
 
               if (xhr.status === 200) resolve(xhr.responseText);
               else reject(`Ошибка ${xhr.status}`);
@@ -38,7 +37,7 @@ class GoodItem {
                 <h4>${this.title}</h4>
                 <p>${this.price || 'Цена по запросу'} руб.</p>
               </div>
-              <button class='addClick' id=${this.id} onclick='list.addToCart(this.id)'>
+              <button class='addClick' id=${this.id} onclick='list.addToBasket(this.id)'>
                 <span class="textButton">Купить<span>
               </button>
             </div>`;
@@ -63,8 +62,16 @@ class GoodsList {
                     });
         })
     }
-    addToCart(id) {
-        listCart.add(this.goods[id]);
+    // метод, отправляющий данные Товара в Корзину для добавления
+    addToBasket(id) {
+        listBasket.add(this.goods[id]);
+    }
+    // метод, отправляющий данные Товара в Корзину для уменьшения количества
+    subFromBasket(id) {
+        listBasket.sub(this.goods[id]);
+    }
+    removeFromBasket(id) {
+        listBasket.remove(this.goods[id]);
     }
     render() {
         let listHtml = '';
@@ -83,17 +90,34 @@ class GoodsList {
             return totalPrice += good.price;
         },0);
     }
-}
+ }
 
-class CartGood extends GoodItem {
+class BasketGood extends GoodItem {
+    constructor(id, title, price, count) {
+        super();
+        this.id = id;
+        this.title = title;
+        this.price = price;
+        this.count = count;
+        this.sum = this.price * this.count;
+    }
     render() {
-        // выводит товар в корзине
-        // вместе с кнопками для регулировки количества
+        return `<div class='basketRow'>` +
+                    `<div class='basketRowCell basketProduct'>${this.title}</div>` +
+                    `<div class='basketRowCell basketPrice'>${this.price} р.</div>` +
+                    `<div class='basketRowCell basketCount'>` +
+                        `<div class='count_left' onclick=list.subFromBasket(${this.id})>-</div>` +
+                        `<div class='count_center'><input class='count_input' type='text' value=${this.count}></div>` +
+                        `<div class='count_right' onclick=list.addToBasket(${this.id})>+</div>` +
+                        `<button class='removeClick' onclick=list.removeFromBasket(${this.id})>` +
+                            `<span class='textButton'>Удалить<span></button></div>` +
+                    `<div class='basketRowCell basketSum'>${this.sum} р.</div>` +
+                `</div>`;
     }
 
 }
 
-class Cart {
+class Basket {
     constructor() {
         this.goods = [];
     }
@@ -106,31 +130,37 @@ class Cart {
         }
         else {
             this.goods[index].count++;
+            this.render();
+        }
+    }
+    sub(good) {
+        let index = this.goods.indexOf(good);
+        if (this.goods[index].count > 1) {
+            good.count--;
+            this.render();
         }
     }
     remove(good) {
-        this.goods.pop(good);
-            listCart.render();
+        let index = this.goods.indexOf(good);
+        this.goods.splice(index, 1);
+            this.render();
     }
     render () {
-        document.querySelector('.cart').style.display = 'block';
-        // Строим таблицу с товарами в корзине
-        let table = document.getElementById('tableToBuy');
-        table.innerHTML = "";
-        let row, col0, col1, col2, col3;
-        for (var i = 0; i < this.goods.length; i++) {
-            row = table.insertRow(i);
-            col0 = row.insertCell(0);
-            col0.innerText = this.goods[i].title;
-            col1 = row.insertCell(1);
-            col1.innerText = this.goods[i].count + " шт. ";
-            col2 = row.insertCell(2);
-            col2.innerText = this.goods[i].price + " руб.";
-            col3 = row.insertCell(3);
-            col3.innerHTML = `<button class='removeClick' id=${this.goods[i]} onclick='listCart.remove(this.id)'>
-                <span class='textButton'>Удалить<span></button>`;
-        }
-        document.querySelector('#summ').innerText = `Итог: ${this.calcSum()} рублей`;
+        let basketElement = document.querySelector('.basket');
+        basketElement.style.display = 'block';
+        basketElement.innerHTML = '<h2>Корзина</h2>\n' +
+            '                <div id="basketHeaderRow">\n' +
+            '                    <div class="basketHeaderCell basketProduct">Товар</div>\n' +
+            '                    <div class="basketHeaderCell basketPrice">Цена</div>\n' +
+            '                    <div class="basketHeaderCell basketCount">Количество</div>\n' +
+            '                    <div class="basketHeaderCell basketSum">Стоимость</div>\n' +
+            '                </div>';
+
+        this.goods.forEach((good) => {
+            const basketGood = new BasketGood(good.id, good.title, good.price, good.count);
+            basketElement.innerHTML += basketGood.render();
+        });
+
     }
     calcSum() {
         return this.goods.reduce((totalPrice, good) => {
@@ -141,7 +171,7 @@ class Cart {
 }
 
 const list = new GoodsList();
-const listCart = new Cart();
+const listBasket = new Basket();
 
 window.onload = () => {
     list.fetchGoods()
