@@ -12,6 +12,7 @@ body {
   background-color: #f8f8f8;
 }
 
+
 .container {
   max-width: 1200px;
   min-width: 410px;
@@ -78,6 +79,96 @@ body {
   text-shadow: white 0px 0px 2px
 }
 
+/*--------- Область Корзины ------------*/
+.basket {
+  display: none;
+  width: 100%;
+  min-height: 200px;
+  border: 1px solid #000;
+  border-radius: 10px;
+  padding: 0 30px 20px;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+  h2 {
+    text-align: center;
+  }
+  #basketHeaderRow {
+    height: 30px;
+    line-height: 30px;
+    border-top: 1px solid #d9dadc;
+    border-bottom: 1px solid #d9dadc;
+  }
+  .basketRow {
+    min-height: 60px;
+    margin-top: 20px;
+  }
+  .basketHeaderCell, .basketRowCell {
+    float: left;
+
+  }
+  .basketHeaderCell,
+  .basketPrice,
+  .basketCount,
+  .basketSum {
+    text-align: center;
+  }
+  .basketProduct {
+    width: 60%;
+  }
+  .basketPrice {
+    width: 12%;
+  }
+  .basketCount {
+    width: 16%;
+    .count_right,
+    .count_left {
+      border: 1px solid #d9dadc;
+      height: 20px;
+      width: 20px;
+      display: inline-block;
+      cursor: pointer;
+    }
+    .count_center {
+      display: inline-block;
+    }
+    .count_input {
+      width: 30px;
+      height: 20px;
+      text-align: center;
+      border-width: 1px;
+      border-style: ridge;
+    }
+    .removeClick {
+      margin-top: 10px;
+    }
+  }
+  .basketSum {
+    width: 12%;
+  }
+  .resultText {
+    float: left;
+    width: 88%;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  .resultText, .resultSum {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  #tableToBuy {
+    border-spacing: 16px;
+    text-align: center;
+
+    td {
+      width: 350px;
+      height: 50px;
+    }
+    td:first-child {
+      text-align: left;
+    }
+  }
+
+}
 /*--------- Основной контент ------------*/
 
 .content {
@@ -121,17 +212,17 @@ h2,
   img {
     height: 150px;
   }
-  .addClick {
-    width: 70px;
-    height: 25px;
-    border-radius: 4px;
-    background: #3537C3;
-    border-style: initial;
-    color: #fff;
-    cursor: pointer;
-  }
 }
 
+.addClick, .removeClick {
+  width: 70px;
+  height: 25px;
+  border-radius: 4px;
+  background: #3537C3;
+  border-style: initial;
+  color: #fff;
+  cursor: pointer;
+}
 .summ-item {
   clear: both;
 }
