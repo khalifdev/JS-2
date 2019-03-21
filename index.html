@@ -3,41 +3,15 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Каталог | Elbook.ru</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Конвертер кавычек</title>
     <script src="script.js"></script>
 </head>
 
 <body>
-    <div class="container">
-        <div class="header">
-            <div class="logo"><img src="logo_grey.png" alt="Логотип Elbook.ru"></div>
-
-            <ul class="menu">
-                <li><a href="index.html">Главная</a></li>
-                <li><a href="catalog.html">Каталог</a></li>
-                <li><a href="contacts.html">Контакты</a></li>
-                <li>
-                    <button class="cart-button" onclick="listBasket.render()">
-                        <span class="textButton">Корзина</span>
-                    </button>
-                </li>
-            </ul>
-        </div>
-        <div class="content">
-            <div class="clear"></div>
-            <div class="basket">
-
-                <!--<table id="tableToBuy">-->
-                    <!--<th>Товар</th><th>Цена</th><th>Количество</th><th>Стоимость</th>-->
-                <!--</table>-->
-                <!--<span id="summ"></span>-->
-            </div>
-            <div class="goods-list"></div>
-            <div class="summ-item"></div>
-        </div>                
-    
-<div class="footer"> <p>&copy; Все права защищены</p> </div></div>
+<textarea id="text" cols="50" rows="20">'Hello world!', the boy said. What's up?
+Teacher says, 'Let's begin!' 'I'm Mr. Black', he offered.</textarea>
+<button onclick="convert()">Заменить</button>
+    <div class="footer"> <p>&copy; Все права защищены</p> </div></div>
 </body>
 
 </html>
