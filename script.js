@@ -37,7 +37,7 @@ class GoodItem {
                 <h4>${this.title}</h4>
                 <p>${this.price || 'Цена по запросу'} руб.</p>
               </div>
-              <button class='addClick' id=${this.id} onclick='list.addToBasket(this.id)'>
+              <button class='addClick' data-id=${this.id}>
                 <span class="textButton">Купить<span>
               </button>
             </div>`;
@@ -64,15 +64,30 @@ class GoodsList {
     }
     // метод, отправляющий данные Товара в Корзину для добавления
     addToBasket(id) {
-        listBasket.add(this.goods[id]);
+        if (this.goods[id].id == id)
+            listBasket.add(this.goods[id]);
+        else {
+            console.log('Id товара не совпал с его номером в list.goods!');
+            return false;
+        }
     }
     // метод, отправляющий данные Товара в Корзину для уменьшения количества
     subFromBasket(id) {
-        listBasket.sub(this.goods[id]);
+        if (this.goods[id].id == id)
+            listBasket.sub(this.goods[id]);
+        else {
+            console.log('Id товара не совпал с его номером в list.goods!');
+            return false;
+        }
     }
     // метод, отправляющий данные Товара в Корзину для удаления
     removeFromBasket(id) {
-        listBasket.remove(this.goods[id]);
+        if (this.goods[id].id == id)
+            listBasket.remove(this.goods[id]);
+        else {
+            console.log('Id товара не совпал с его номером в list.goods!');
+            return false;
+        }
     }
     render() {
         let listHtml = '';
@@ -121,6 +136,7 @@ class BasketGood extends GoodItem {
 class Basket {
     constructor() {
         this.goods = [];
+        this.isVisible = false;
     }
 
     add(good) {
@@ -134,7 +150,7 @@ class Basket {
         }
         // если нет
         else {
-            this.goods[index].count++;
+            this.goods[index].count += 1;
             good.sum += good.price;
             this.render();
         }
@@ -143,7 +159,7 @@ class Basket {
         // уменьшаем количество Товара, если его больше 1
         let index = this.goods.indexOf(good);
         if (this.goods[index].count > 1) {
-            good.count--;
+            good.count -= 1;
             good.sum -= good.price;
             this.render();
         }
@@ -170,8 +186,9 @@ class Basket {
             basketElement.innerHTML += basketGood.render();
         });
         // Вывод итоговой стоимости Товаров в Корзине
-        basketElement.innerHTML +=`<div class="basketRow"><div class="resultText">Итого заказано товаров на сумму</div>
+        basketElement.innerHTML +=`<div class="basketRow"><div class="resultText">Итого выбрано товаров на сумму</div>
             <div class="resultSum">${this.calcSum()} руб.</div></div>`;
+
     }
     // Подсчет итоговой стоимости Товаров в Корзине
     calcSum() {
@@ -190,9 +207,15 @@ window.onload = () => {
     list.fetchGoods()
         .then(() => {
             list.render();
+            // Подключаем события нажатия на кнопки Купить
+            let buyButtons = [... document.querySelectorAll('.addClick')];
+            buyButtons.forEach((button) => {
+                let id = button.getAttribute('data-id');
+                button.addEventListener('click', () => {
+                    list.addToBasket(id)});
+            });
         },
         (error) => {
             console.log(error);
         })
-
 };
