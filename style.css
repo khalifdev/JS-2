@@ -66,7 +66,6 @@ body {
 
 /*--------- Область Корзины ------------*/
 .basket {
-  display: none;
   width: 100%;
   min-height: 200px;
   border: 1px solid #000;
@@ -112,8 +111,6 @@ body {
       text-align: center;
       border-width: 1px;
       border-style: ridge; }
-    .basket .basketCount .removeClick {
-      margin-top: 10px; }
   .basket .basketSum {
     width: 12%; }
   .basket .resultText {
