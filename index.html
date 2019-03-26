@@ -19,37 +19,33 @@
                     <li><a href="catalog.html">Каталог</a></li>
                     <li><a href="contacts.html">Контакты</a></li>
                     <li>
-                        <button class="cart-button" @click="showBasket">
+                        <button class="cart-button" @click="toggleCartVisibility">
                             <span class="textButton">Корзина</span>
                         </button>
                     </li>
                 </ul>
-                <input type="text" class="goods-search" v-model="searchLine">
-                <button class="search-button" type="button" @click="filterGoods">Искать</button>
+                <search :searchLine="searchLine"></search>
             </div>
             <div class="content">
                 <div class="clear"></div>
-                <div class="basket" v-if="isVisibleBasket">
+                <div class="cart" v-if="isVisibleCart">
                     <h2>Корзина</h2>
-                    <div id="basketHeaderRow">
-                        <div class="basketHeaderCell basketProduct">Товар</div>
-                        <div class="basketHeaderCell basketPrice">Цена</div>
+                    <div id="cartHeaderRow">
+                        <div class="cartHeaderCell cartProduct">Товар</div>
+                        <div class="cartHeaderCell cartPrice">Цена</div>
                     </div>
-                    <div class='basketRow' v-for="good in goodsInBasket">
-                        <div class='basketRowCell basketProduct'>{{good.title}}</div>
-                        <div class='basketRowCell basketPrice'>{{good.price}} р.</div>
-                        <div class='basketRowCell basketCount'>
+                    <div class='cartRow' v-for="good in goodsIncart">
+                        <div class='cartRowCell cartProduct'>{{good.title}}</div>
+                        <div class='cartRowCell cartPrice'>{{good.price}} р.</div>
+                        <div class='cartRowCell cartCount'>
                             <button class='removeClick'>Удалить</button>
                         </div>
                     </div>
                 </div>
-                <div class="goods-list">
-                    <div class="goods-item" v-for="good in filteredGoods">
-                        <h3>{{ good.title }}</h3>
-                        <p>{{ good.price }}</p>
-                    </div>
-                    <div id="catalog-empty" v-if="!filteredGoods"><h2>Нет данных</h2></div>
-                </div>
+                <goods-list :goods="filteredGoods"></goods-list>
+
+                    <div id="catalog-empty" v-if="filteredGoods.length !=0"><h2>Нет данных</h2></div>
+
                 <div class="summ-item"></div>
             </div>
 
