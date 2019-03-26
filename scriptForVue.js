@@ -29,17 +29,17 @@ Vue.component('search', {
     template: `
     <div class="search">
         <form @submit.prevent="filterGoods" class="search-form">
-            <input type="text" value="searchLine" class="goods-search">
+            <input type="text" v-model="searchLine" class="goods-search">
             <button class="search-button" type="submit">Искать</button>
         </form>
     </div>
   `
 });
 
-Vue.component('cart', {
+/*Vue.component('cart', {
     props: ['goodsInCart'],
     template: `
-    <div class="cart">
+    <div class="cart" v-if="isVisibleCart === true">
         <h2>Корзина</h2>
         <div id="cartHeaderRow">
             <div class="cartHeaderCell cartProduct">Товар</div>
@@ -54,7 +54,7 @@ Vue.component('cart', {
         </div>
     </div>
   `
-});
+});*/
 
 // Подключение экземпляра Vue.js
 const app = new Vue({

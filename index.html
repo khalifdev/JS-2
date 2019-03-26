@@ -28,23 +28,10 @@
             </div>
             <div class="content">
                 <div class="clear"></div>
-                <div class="cart" v-if="isVisibleCart">
-                    <h2>Корзина</h2>
-                    <div id="cartHeaderRow">
-                        <div class="cartHeaderCell cartProduct">Товар</div>
-                        <div class="cartHeaderCell cartPrice">Цена</div>
-                    </div>
-                    <div class='cartRow' v-for="good in goodsIncart">
-                        <div class='cartRowCell cartProduct'>{{good.title}}</div>
-                        <div class='cartRowCell cartPrice'>{{good.price}} р.</div>
-                        <div class='cartRowCell cartCount'>
-                            <button class='removeClick'>Удалить</button>
-                        </div>
-                    </div>
-                </div>
+                <!--<cart :goodsInCart="goodsInCart"></cart>-->
                 <goods-list :goods="filteredGoods"></goods-list>
 
-                    <div id="catalog-empty" v-if="filteredGoods.length !=0"><h2>Нет данных</h2></div>
+                    <div id="catalog-empty" v-if="filteredGoods.length ==0"><h2>Нет данных</h2></div>
 
                 <div class="summ-item"></div>
             </div>
