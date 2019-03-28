@@ -65,7 +65,7 @@ body {
   text-shadow: white 0px 0px 2px; }
 
 /*--------- Область Корзины ------------*/
-.basket {
+.cart {
   width: 100%;
   min-height: 200px;
   border: 1px solid #000;
@@ -73,62 +73,54 @@ body {
   padding: 0 30px 20px;
   box-sizing: border-box;
   margin-bottom: 20px; }
-  .basket h2 {
+  .cart h2 {
     text-align: center; }
-  .basket #basketHeaderRow {
+  .cart #cartHeaderRow {
     height: 30px;
     line-height: 30px;
     border-top: 1px solid #d9dadc;
     border-bottom: 1px solid #d9dadc; }
-  .basket .basketRow {
+  .cart .cartRow {
     min-height: 60px;
     margin-top: 20px; }
-  .basket .basketHeaderCell, .basket .basketRowCell {
+  .cart .cartHeaderCell, .cart .cartRowCell {
     float: left; }
-  .basket .basketHeaderCell,
-  .basket .basketPrice,
-  .basket .basketCount,
-  .basket .basketSum {
+  .cart .cartHeaderCell,
+  .cart .cartPrice,
+  .cart .cartCount,
+  .cart .cartSum {
     text-align: center; }
-  .basket .basketProduct {
+  .cart .cartProduct {
     width: 60%; }
-  .basket .basketPrice {
+  .cart .cartPrice {
     width: 12%; }
-  .basket .basketCount {
+  .cart .cartCount {
     width: 16%; }
-    .basket .basketCount .count_right,
-    .basket .basketCount .count_left {
+    .cart .cartCount .count_right,
+    .cart .cartCount .count_left {
       border: 1px solid #d9dadc;
       height: 20px;
       width: 20px;
       display: inline-block;
       cursor: pointer; }
-    .basket .basketCount .count_center {
+    .cart .cartCount .count_center {
       display: inline-block; }
-    .basket .basketCount .count_input {
+    .cart .cartCount .count_input {
       width: 30px;
       height: 20px;
       text-align: center;
       border-width: 1px;
       border-style: ridge; }
-  .basket .basketSum {
+  .cart .cartSum {
     width: 12%; }
-  .basket .resultText {
+  .cart .resultText {
     float: left;
     width: 88%;
     font-size: 20px;
     font-weight: bold; }
-  .basket .resultText, .basket .resultSum {
+  .cart .resultText, .cart .resultSum {
     font-size: 20px;
     font-weight: bold; }
-  .basket #tableToBuy {
-    border-spacing: 16px;
-    text-align: center; }
-    .basket #tableToBuy td {
-      width: 350px;
-      height: 50px; }
-    .basket #tableToBuy td:first-child {
-      text-align: left; }
 
 /*--------- Основной контент ------------*/
 .content {

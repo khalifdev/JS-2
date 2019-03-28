@@ -80,7 +80,7 @@ body {
 }
 
 /*--------- Область Корзины ------------*/
-.basket {
+.cart {
   width: 100%;
   min-height: 200px;
   border: 1px solid #000;
@@ -91,33 +91,33 @@ body {
   h2 {
     text-align: center;
   }
-  #basketHeaderRow {
+  #cartHeaderRow {
     height: 30px;
     line-height: 30px;
     border-top: 1px solid #d9dadc;
     border-bottom: 1px solid #d9dadc;
   }
-  .basketRow {
+  .cartRow {
     min-height: 60px;
     margin-top: 20px;
   }
-  .basketHeaderCell, .basketRowCell {
+  .cartHeaderCell, .cartRowCell {
     float: left;
 
   }
-  .basketHeaderCell,
-  .basketPrice,
-  .basketCount,
-  .basketSum {
+  .cartHeaderCell,
+  .cartPrice,
+  .cartCount,
+  .cartSum {
     text-align: center;
   }
-  .basketProduct {
+  .cartProduct {
     width: 60%;
   }
-  .basketPrice {
+  .cartPrice {
     width: 12%;
   }
-  .basketCount {
+  .cartCount {
     width: 16%;
     .count_right,
     .count_left {
@@ -138,7 +138,7 @@ body {
       border-style: ridge;
     }
   }
-  .basketSum {
+  .cartSum {
     width: 12%;
   }
   .resultText {
@@ -150,18 +150,6 @@ body {
   .resultText, .resultSum {
     font-size: 20px;
     font-weight: bold;
-  }
-  #tableToBuy {
-    border-spacing: 16px;
-    text-align: center;
-
-    td {
-      width: 350px;
-      height: 50px;
-    }
-    td:first-child {
-      text-align: left;
-    }
   }
 
 }
