@@ -28,7 +28,7 @@
             </div>
             <div class="content">
                 <div class="clear"></div>
-                <cart v-if="isVisibleCart" :goodsInCart="goodsInCart"></cart>
+                <cart v-if="isVisibleCart" :goods="goodsInCart"></cart>
                 <goods-list :goods="filteredGoods"></goods-list>
 
                     <div id="catalog-empty" v-if="filteredGoods.length ==0"><h2>Нет данных</h2></div>
