@@ -1,60 +1,4 @@
-const API_URL = 'http://obuch';
-
-
-Vue.component('goods-list', {
-    props: ['goods'],
-    template: `
-    <div class="goods-list">
-      <goods-item v-for="good in goods"
-        :key="good.id"
-        :good="good">
-      </goods-item>
-    </div>
-  `
-});
-
-Vue.component('goods-item', {
-    props: ['good'],
-    template: `
-    <div class="goods-item">
-      <slot></slot>
-      <h3>{{good.title}}</h3>
-      <p>{{good.price}}</p>
-    </div>
-  `
-});
-
-Vue.component('search', {
-    props: ['searchLine'],
-    template: `
-    <div class="search">
-        <form @submit.prevent="filterGoods" class="search-form">
-            <input type="text" v-model="searchLine" class="goods-search">
-            <button class="search-button" type="submit">Искать</button>
-        </form>
-    </div>
-  `
-});
-
-/*Vue.component('cart', {
-    props: ['goodsInCart'],
-    template: `
-    <div class="cart" v-if="isVisibleCart === true">
-        <h2>Корзина</h2>
-        <div id="cartHeaderRow">
-            <div class="cartHeaderCell cartProduct">Товар</div>
-            <div class="cartHeaderCell cartPrice">Цена</div>
-        </div>
-        <div class='cartRow' v-for="good in goodsInCart">
-            <div class='cartRowCell cartProduct'>{{good.title}}</div>
-            <div class='cartRowCell cartPrice'>{{good.price}} р.</div>
-            <div class='cartRowCell cartCount'>
-                <button class='removeClick'>Удалить</button>
-            </div>
-        </div>
-    </div>
-  `
-});*/
+const API_URL = 'http://ck36854.tmweb.ru';
 
 // Подключение экземпляра Vue.js
 const app = new Vue({
@@ -63,7 +7,6 @@ const app = new Vue({
         goods: [],
         filteredGoods: [],
         goodsInCart: [],
-        searchLine: '',
         isVisibleCart: false
     },
     methods: {
@@ -86,9 +29,12 @@ const app = new Vue({
         toggleCartVisibility() {
             this.isVisibleCart = !this.isVisibleCart;
         },
-        filterGoods() {
-          const regexp = new RegExp(this.searchLine, 'i');
-          this.filteredGoods = this.goods.filter(good => regexp.test(good.title));
+        filterGoods(value) {
+            const regexp = new RegExp(value, 'i');
+            this.filteredGoods = this.goods.filter(good => regexp.test(good.title));
+        },
+        addToCart(){
+            console.log('ok');
         }
     },
     async mounted() {
@@ -101,3 +47,73 @@ const app = new Vue({
         }
     }
 });
+
+function addToCart(){
+    app.addToCart();
+}
+
+Vue.component('goods-list', {
+    props: ['goods'],
+    template: `
+    <div class="goods-list">
+      <goods-item v-for="good in goods"
+        :key="good.id"
+        :good="good">
+      </goods-item>
+    </div>
+  `
+});
+
+Vue.component('goods-item', {
+    props: ['good'],
+    template: `
+    <div class="goods-item">
+      <img v-if="good.path" :src=good.path alt="No photo">
+      <template v-else>
+        <img src='img/nophoto_540x540.jpg' alt="No photo">
+      </template>
+      <h4>{{good.title}}</h4>
+      <p>{{good.price}}</p>
+      <button class='addClick' v-on:click="addToCart">
+          Купить
+      </button>
+    </div>
+  `
+});
+
+Vue.component('search', {
+    data() {
+        return {
+            searchLine: ''
+        }
+    },
+    template: `
+    <div class="search">
+        <form @submit.prevent="$emit('search', searchLine)" class="search-form">
+            <input type="text" v-model="searchLine" class="goods-search">
+            <button class="search-button" type="submit">Искать</button>
+        </form>
+    </div>
+  `
+});
+
+Vue.component('cart', {
+    props: ['goodsInCart'],
+    template: `
+    <div class="cart">
+        <h2>Корзина</h2>
+        <div id="cartHeaderRow">
+            <div class="cartHeaderCell cartProduct">Товар</div>
+            <div class="cartHeaderCell cartPrice">Цена</div>
+        </div>
+        <div class='cartRow' v-for="good in goodsInCart">
+            <div class='cartRowCell cartProduct'>{{good.title}}</div>
+            <div class='cartRowCell cartPrice'>{{good.price}} р.</div>
+            <div class='cartRowCell cartCount'>
+                <button class='removeClick'>Удалить</button>
+            </div>
+        </div>
+    </div>
+  `
+});
+

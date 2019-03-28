@@ -24,11 +24,11 @@
                         </button>
                     </li>
                 </ul>
-                <search :searchLine="searchLine"></search>
+                <search @search="filterGoods"></search>
             </div>
             <div class="content">
                 <div class="clear"></div>
-                <!--<cart :goodsInCart="goodsInCart"></cart>-->
+                <cart v-if="isVisibleCart" :goodsInCart="goodsInCart"></cart>
                 <goods-list :goods="filteredGoods"></goods-list>
 
                     <div id="catalog-empty" v-if="filteredGoods.length ==0"><h2>Нет данных</h2></div>
@@ -39,7 +39,7 @@
             <div class="footer"> <p>&copy; Все права защищены</p> </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <script src="vue.js"></script>
     <script src="scriptForVue.js"></script>
 </body>
 
