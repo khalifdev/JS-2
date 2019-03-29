@@ -62,6 +62,22 @@ Vue.component('search', {
 
 Vue.component('cart', {
     props: ['goods'],
+
+    data: function(){
+        return {
+            async removeFromCart(good){
+                try {
+                    const obj = await app.makePOSTRequest(`removeFromCart`,good);
+                    if (obj.result)
+                        console.log(good.title + ' удалена из Корзины!');
+                    else
+                        console.log(good.title + 'Ошибка чтения/записи Корзины!');
+                } catch(err) {
+                    console.error(err);
+                }
+            }
+        }
+    },
     template: `
     <div class="cart">
         <h2>Корзина</h2>
@@ -73,7 +89,7 @@ Vue.component('cart', {
             <div class='cartRowCell cartProduct'>{{good.title}}</div>
             <div class='cartRowCell cartPrice'>{{good.price}} р.</div>
             <div class='cartRowCell cartCount'>
-                <button class='removeClick'>Удалить</button>
+                <button class='removeClick' @click="removeFromCart(good)">Удалить</button>
             </div>
         </div>
     </div>
@@ -125,12 +141,20 @@ const app = new Vue({
                 xhr.send(JSON.stringify(data));
             })
         },
-        async toggleCartVisibility() {
-            this.isVisibleCart = !this.isVisibleCart;
+        async showCart(){
             try {
                 this.goodsInCart = await this.makeGETRequest(`cartData`);
             } catch(err) {
                 console.error(err);
+            }
+        },
+        toggleCartVisibility() {
+            if (!this.isVisibleCart) {
+                this.isVisibleCart = true;
+                this.showCart();
+            }
+            else {
+                this.isVisibleCart = false;
             }
         },
         filterGoods(value) {

@@ -31,6 +31,25 @@ app.post('/addToCart', (req, res) => {
     });
 });
 
+app.post('/removeFromCart', (req, res) => {
+    fs.readFile('cart.json', 'utf8', (err, data) => {
+        if (err) {
+            res.send('{"result": 0}');
+        } else {
+            const cart = JSON.parse(data);
+            const item = req.body;
+            cart.splice(cart.indexOf(item),1);
+            fs.writeFile('cart.json', JSON.stringify(cart), (err) => {
+                if (err) {
+                    res.send('{"result": 0}');
+                } else {
+                    res.send('{"result": 1}');
+                }
+            });
+        }
+    });
+});
+
 app.get('/cartData', (req, res) => {
     fs.readFile('cart.json', 'utf8', (err, data) => {
         res.send(data);
