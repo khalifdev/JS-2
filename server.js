@@ -38,14 +38,28 @@ app.post('/removeFromCart', (req, res) => {
         } else {
             const cart = JSON.parse(data);
             const item = req.body;
-            cart.splice(cart.indexOf(item),1);
-            fs.writeFile('cart.json', JSON.stringify(cart), (err) => {
-                if (err) {
-                    res.send('{"result": 0}');
-                } else {
-                    res.send('{"result": 1}');
-                }
-            });
+
+            const index = cart.indexOf(item);
+            if (index != -1) {
+                cart.splice(index, 1);
+                fs.writeFile('cart.json', JSON.stringify(cart), (err) => {
+                    if (err) {
+                        res.send('{"result": 0}');
+                    } else {
+                        res.send('{"result": 1}');
+                    }
+                });
+            }
+            else {
+                fs.writeFile('index.txt', JSON.stringify(item), (err) => {
+                    if (err) {
+                        res.send('{"result": 0}');
+                    } else {
+                        res.send('{"result": 1}');
+                    }
+                });
+                res.send('{"result": 2}');
+            }
         }
     });
 });

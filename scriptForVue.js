@@ -6,7 +6,8 @@ Vue.component('goods-list', {
     <div class="goods-list">
       <goods-item v-for="good in goods"
         :key="good.id"
-        :good="good">
+        :good="good"
+        @add-to-cart-item="$emit('add-to-cart', good)">
       </goods-item>
     </div>
   `
@@ -14,21 +15,6 @@ Vue.component('goods-list', {
 
 Vue.component('goods-item', {
     props: ['good'],
-    data: function(){
-            return {
-                async addToCart(good){
-                    try {
-                        const obj = await app.makePOSTRequest(`addToCart`,good);
-                        if (obj.result)
-                            console.log(good.title + ' добавлена в Корзину!');
-                        else
-                            console.log(good.title + 'Ошибка чтения/записи Корзины!');
-                    } catch(err) {
-                        console.error(err);
-                    }
-                }
-            }
-    },
     template: `
     <div class="goods-item">
       <img v-if="good.path" :src=good.path alt="No photo">
@@ -37,7 +23,7 @@ Vue.component('goods-item', {
       </template>
       <h4>{{good.title}}</h4>
       <p>{{good.price}}</p>
-      <button class='addClick' @click="addToCart(good)">
+      <button class='addClick' @click="$emit('add-to-cart-item')">
           Купить
       </button>
     </div>
@@ -62,22 +48,6 @@ Vue.component('search', {
 
 Vue.component('cart', {
     props: ['goods'],
-
-    data: function(){
-        return {
-            async removeFromCart(good){
-                try {
-                    const obj = await app.makePOSTRequest(`removeFromCart`,good);
-                    if (obj.result)
-                        console.log(good.title + ' удалена из Корзины!');
-                    else
-                        console.log(good.title + 'Ошибка чтения/записи Корзины!');
-                } catch(err) {
-                    console.error(err);
-                }
-            }
-        }
-    },
     template: `
     <div class="cart">
         <h2>Корзина</h2>
@@ -89,7 +59,7 @@ Vue.component('cart', {
             <div class='cartRowCell cartProduct'>{{good.title}}</div>
             <div class='cartRowCell cartPrice'>{{good.price}} р.</div>
             <div class='cartRowCell cartCount'>
-                <button class='removeClick' @click="removeFromCart(good)">Удалить</button>
+                <button class='removeClick' @click="$emit('remove-from-cart', good)">Удалить</button>
             </div>
         </div>
     </div>
@@ -160,6 +130,30 @@ const app = new Vue({
         filterGoods(value) {
             const regexp = new RegExp(value, 'i');
             this.filteredGoods = this.goods.filter(good => regexp.test(good.title));
+        },
+        async addToCart(good){
+            try {
+                const obj = await this.makePOSTRequest(`addToCart`,good);
+                if (obj.result)
+                    console.log(good.title + ' добавлена в Корзину!');
+                else
+                    console.log(good.title + 'Ошибка чтения/записи Корзины!');
+            } catch(err) {
+                console.error(err);
+            }
+        },
+        async removeFromCart(good){
+            try {
+                const obj = await this.makePOSTRequest(`removeFromCart`,good);
+                if (obj.result == 1)
+                    console.log(good.title + ' удалена из Корзины!');
+                else if (obj.result == 2)
+                    console.log("Объект не найден в Корзине!");
+                else
+                    console.log(good.title + 'Ошибка чтения/записи Корзины!');
+            } catch(err) {
+                console.error(err);
+            }
         }
     },
     async mounted() {
