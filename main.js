@@ -1,5 +1,3 @@
-const API_URL = 'http://ck36854.tmweb.ru';
-
 Vue.component('goods-list', {
     props: ['goods'],
     template: `
@@ -30,21 +28,6 @@ Vue.component('goods-item', {
   `
 });
 
-Vue.component('search', {
-    data() {
-        return {
-            searchLine: ''
-        }
-    },
-    template: `
-    <div class="search">
-        <form @submit.prevent="$emit('search', searchLine)" class="search-form">
-            <input type="text" v-model="searchLine" class="goods-search">
-            <button class="search-button" type="submit">Искать</button>
-        </form>
-    </div>
-  `
-});
 
 Vue.component('cart', {
     props: ['goods'],
@@ -66,9 +49,19 @@ Vue.component('cart', {
   `
 });
 
+
+import SearchComponent from './search';
+
+export default {
+    SearchComponent
+}
+
 // Подключение экземпляра Vue.js
 const app = new Vue({
     el: '#app',
+    components: {
+        'search': SearchComponent
+    },
     data: {
         goods: [],
         filteredGoods: [],
@@ -165,6 +158,3 @@ const app = new Vue({
         }
     }
 });
-
-
-
