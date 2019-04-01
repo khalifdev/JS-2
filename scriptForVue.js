@@ -146,11 +146,11 @@ const app = new Vue({
             try {
                 const obj = await this.makePOSTRequest(`removeFromCart`,good);
                 if (obj.result == 1)
-                    console.log(good.title + ' удалена из Корзины!');
+                    this.showCart();
                 else if (obj.result == 2)
                     console.log("Объект не найден в Корзине!");
                 else
-                    console.log(good.title + 'Ошибка чтения/записи Корзины!');
+                    console.log('Ошибка чтения/записи в ФС!');
             } catch(err) {
                 console.error(err);
             }

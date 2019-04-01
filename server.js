@@ -39,7 +39,7 @@ app.post('/removeFromCart', (req, res) => {
             const cart = JSON.parse(data);
             const item = req.body;
 
-            const index = cart.indexOf(item);
+            const index = cart.findIndex(cartItem => (cartItem.id == item.id));
             if (index != -1) {
                 cart.splice(index, 1);
                 fs.writeFile('cart.json', JSON.stringify(cart), (err) => {
@@ -51,13 +51,6 @@ app.post('/removeFromCart', (req, res) => {
                 });
             }
             else {
-                fs.writeFile('index.txt', JSON.stringify(item), (err) => {
-                    if (err) {
-                        res.send('{"result": 0}');
-                    } else {
-                        res.send('{"result": 1}');
-                    }
-                });
                 res.send('{"result": 2}');
             }
         }
