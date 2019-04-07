@@ -14,6 +14,4 @@ const SearchComponent = {
   `
 };
 
-export default {
-    SearchComponent
-}
+export default Vue.component('search',SearchComponent);

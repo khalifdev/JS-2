@@ -1,66 +1,15 @@
-Vue.component('goods-list', {
-    props: ['goods'],
-    template: `
-    <div class="goods-list">
-      <goods-item v-for="good in goods"
-        :key="good.id"
-        :good="good"
-        @add-to-cart-item="$emit('add-to-cart', good)">
-      </goods-item>
-    </div>
-  `
-});
 
-Vue.component('goods-item', {
-    props: ['good'],
-    template: `
-    <div class="goods-item">
-      <img v-if="good.path" :src=good.path alt="No photo">
-      <template v-else>
-        <img src='img/nophoto_540x540.jpg' alt="No photo">
-      </template>
-      <h4>{{good.title}}</h4>
-      <p>{{good.price}}</p>
-      <button class='addClick' @click="$emit('add-to-cart-item')">
-          Купить
-      </button>
-    </div>
-  `
-});
-
-
-Vue.component('cart', {
-    props: ['goods'],
-    template: `
-    <div class="cart">
-        <h2>Корзина</h2>
-        <div id="cartHeaderRow">
-            <div class="cartHeaderCell cartProduct">Товар</div>
-            <div class="cartHeaderCell cartPrice">Цена</div>
-        </div>
-        <div class='cartRow' v-for="good in goods">
-            <div class='cartRowCell cartProduct'>{{good.title}}</div>
-            <div class='cartRowCell cartPrice'>{{good.price}} р.</div>
-            <div class='cartRowCell cartCount'>
-                <button class='removeClick' @click="$emit('remove-from-cart', good)">Удалить</button>
-            </div>
-        </div>
-    </div>
-  `
-});
-
-
-import SearchComponent from './search';
-
-export default {
-    SearchComponent
-}
+import GoodsListComponent from './components/goods-list';
+import CartComponent from './components/cart';
+import SearchComponent from './components/search';
 
 // Подключение экземпляра Vue.js
 const app = new Vue({
     el: '#app',
     components: {
-        'search': SearchComponent
+        'search': SearchComponent,
+        'cart': CartComponent,
+        'goods-list': GoodsListComponent
     },
     data: {
         goods: [],
